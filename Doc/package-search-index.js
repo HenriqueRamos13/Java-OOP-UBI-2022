@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"Course"},{"l":"Database"},{"l":"Menu"},{"l":"Student"},{"l":"Subject"},{"l":"Teacher"},{"l":"User"}];updateSearchResults();

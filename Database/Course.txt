@@ -1,0 +1,2 @@
+id;Integer:name;String
+0:Informática
