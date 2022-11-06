@@ -60,6 +60,19 @@ public class Database {
           student.setField(fieldName, fieldValue);
         } else if (fieldType.equals("Integer")) {
           student.setField(fieldName, fieldValue);
+        } else if (fieldType.equals("Array")) {
+          if (fieldClass.equals("Subject")) {
+            if (fieldValue.equals("[]")) {
+              student.setSubjects(new Subject[0]);
+            } else {
+              String[] subjectIds = fieldValue.substring(1, fieldValue.length() - 1).split(",");
+              Subject[] subjects = new Subject[subjectIds.length];
+              for (int j = 0; j < subjectIds.length; j++) {
+                subjects[j] = Database.SUBJECT.get(Integer.parseInt(subjectIds[j]));
+              }
+              student.setSubjects(subjects);
+            }
+          }
         } else if (fieldType.equals("Class")) {
           if (fieldClass.equals("User")) {
             User user = USER.get(Integer.parseInt(fieldValue));
@@ -145,7 +158,6 @@ public class Database {
         String fieldValue = values[i];
 
         if (fieldType.equals("String")) {
-
           user.setField(fieldName, fieldValue);
         } else if (fieldType.equals("Integer")) {
           user.setField(fieldName, fieldValue);
@@ -232,12 +244,27 @@ public class Database {
           teacher.setField(fieldName, fieldValue);
         } else if (fieldType.equals("Integer")) {
           teacher.setField(fieldName, fieldValue);
+        } else if (fieldType.equals("Array")) {
+          if (fieldClass.equals("Subject")) {
+            if (fieldValue.equals("[]")) {
+              teacher.setSubjects(new Subject[0]);
+            } else {
+              String[] subjectIds = fieldValue.substring(1, fieldValue.length() - 1).split(",");
+              Subject[] subjects = new Subject[subjectIds.length];
+              for (int j = 0; j < subjectIds.length; j++) {
+                subjects[j] = Database.SUBJECT.get(Integer.parseInt(subjectIds[j]));
+              }
+              teacher.setSubjects(subjects);
+            }
+          }
         } else if (fieldType.equals("Class")) {
-
           if (fieldClass.equals("User")) {
             User user = USER.get(Integer.parseInt(fieldValue));
             teacher.setId(user.getId());
             teacher.setName(user.getName());
+          } else if (fieldClass.equals("Course")) {
+            Course course = COURSE.get(Integer.parseInt(fieldValue));
+            teacher.setCourse(course);
           }
         }
       }

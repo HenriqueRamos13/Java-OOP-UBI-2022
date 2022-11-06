@@ -8,7 +8,6 @@ import Database.Database;
 public class User {
   protected int id;
   protected String name;
-  // private Scanner sc = new Scanner(System.in);
 
   public User() {
   }
@@ -23,6 +22,10 @@ public class User {
     this.name = name;
   }
 
+  /**
+   * @param fieldName
+   * @param fieldValue
+   */
   public void setField(String fieldName, String fieldValue) {
     switch (fieldName) {
       case "name":
@@ -34,22 +37,37 @@ public class User {
     }
   }
 
+  /**
+   * @return String
+   */
   public String getName() {
     return this.name;
   }
 
+  /**
+   * @param name
+   */
   public void setName(String name) {
     this.name = name;
   }
 
+  /**
+   * @return int
+   */
   public int getId() {
     return this.id;
   }
 
+  /**
+   * @param id
+   */
   public void setId(int id) {
     this.id = id;
   }
 
+  /**
+   * @return String
+   */
   @Override
   public String toString() {
     return "{" + " id='" + getId() + "'" + ", name='" + getName() + "'" + "}";

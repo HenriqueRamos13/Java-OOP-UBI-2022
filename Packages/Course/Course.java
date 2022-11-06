@@ -12,6 +12,10 @@ public class Course {
     this.id = id;
   }
 
+  /**
+   * @param fieldName
+   * @param fieldValue
+   */
   public void setField(String fieldName, String fieldValue) {
     switch (fieldName) {
       case "name":
@@ -23,19 +27,39 @@ public class Course {
     }
   }
 
+  /**
+   * @return String
+   */
   public String getName() {
     return this.name;
   }
 
+  /**
+   * @param name
+   */
   public void setName(String name) {
     this.name = name;
   }
 
+  /**
+   * @return int
+   */
   public int getId() {
     return this.id;
   }
 
+  /**
+   * @param id
+   */
   public void setId(int id) {
     this.id = id;
+  }
+
+  /**
+   * @return String
+   */
+  @Override
+  public String toString() {
+    return "{" + " name='" + getName() + "'" + ", id='" + getId() + "'" + "}";
   }
 }

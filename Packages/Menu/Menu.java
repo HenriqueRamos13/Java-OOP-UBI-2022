@@ -1,116 +1,324 @@
 package Menu;
 
 import java.util.Scanner;
-
-import User.User;
+import Database.Database;
 
 public class Menu {
   private Scanner sc = new Scanner(System.in);
 
   final static String[] menu = {
-      "1 - Listar funcionários",
-      "2 - Cadastrar funcionário",
-      "3 - Editar funcionário",
-      "4 - Listar materiais",
-      "5 - Cadastrar material",
-      "6 - Editar material",
-      "7 - Listar obras",
-      "8 - Cadastrar obra",
-      "9 - Editar obra",
-      "10 - Ganhos",
-      "11 - Lucro total",
-      "12 - Listar compras feitas",
-      "13 - Sair"
+      "1 - Cursos",
+      "2 - Professores",
+      "3 - Alunos",
+      "4 - Matérias",
+      "5 - Usuários",
+      "6 - Sair"
   };
 
-  // public Menu() {
-  // int choice;
+  final static String[] menuCourse = {
+      "1 - Listar",
+      "2 - Adicionar",
+      "3 - Remover",
+      "4 - Voltar"
+  };
 
-  // do {
+  final static String[] menuSubject = {
+      "1 - Listar",
+      "2 - Adicionar",
+      "3 - Remover",
+      "4 - Voltar"
+  };
 
-  // printMenus(menu, false);
+  final static String[] menuStudent = {
+      "1 - Listar",
+      "2 - Adicionar",
+      "3 - Remover",
+      "4 - Voltar"
+  };
 
-  // try {
-  // choice = this.sc.nextInt();
-  // } catch (Exception e) {
-  // choice = -1;
-  // }
+  final static String[] menuTeacher = {
+      "1 - Listar",
+      "2 - Adicionar",
+      "3 - Remover",
+      "4 - Voltar"
+  };
 
-  // switch (choice) {
-  // case 1:
-  // User workers = new User();
-  // workers.list();
-  // break;
+  final static String[] menuUser = {
+      "1 - Listar",
+      "2 - Adicionar",
+      "3 - Remover",
+      "4 - Voltar"
+  };
 
-  // case 2:
-  // User newWorker = new User();
-  // newWorker.create();
-  // break;
+  public Menu() {
+    int choice;
 
-  // case 3:
-  // User editWorker = new User();
-  // editWorker.edit();
-  // break;
+    do {
 
-  // case 4:
+      printMenus(menu, false);
 
-  // break;
+      try {
+        choice = this.sc.nextInt();
+      } catch (Exception e) {
+        choice = -1;
+      }
 
-  // case 5:
+      switch (choice) {
+        case 1:
+          courseMenu();
+          break;
 
-  // break;
+        case 2:
+          teacherMenu();
+          break;
 
-  // case 6:
+        case 3:
+          studentMenu();
+          break;
 
-  // break;
+        case 4:
+          subjectMenu();
+          break;
 
-  // case 7:
+        case 5:
+          userMenu();
+          break;
 
-  // break;
+        default:
+          if (choice == menu.length) {
+            System.out.println("Saindo...");
+          } else {
+            System.out.println("Opção inválida!");
+          }
+          break;
+      }
 
-  // case 8:
+    } while (choice != menu.length);
 
-  // break;
+  }
 
-  // case 9:
+  private void studentMenu() {
+    int choice;
 
-  // break;
+    do {
 
-  // case 10:
+      printMenus(menuStudent, false);
 
-  // break;
+      try {
+        choice = this.sc.nextInt();
+      } catch (Exception e) {
+        choice = -1;
+      }
 
-  // case 11:
+      switch (choice) {
+        case 1:
+          System.out.println(Database.STUDENT.toString());
+          pressEnterToContinue();
+          break;
 
-  // break;
+        case 2:
 
-  // case 12:
+          break;
 
-  // break;
+        case 3:
 
-  // default:
-  // if (choice == menu.length) {
-  // System.out.println("Saindo...");
-  // } else {
-  // System.out.println("Opção inválida!");
-  // }
-  // break;
-  // }
+          break;
 
-  // } while (choice != menu.length);
+        default:
+          if (choice == menu.length) {
+            System.out.println("Voltando...");
+          } else {
+            System.out.println("Opção inválida!");
+          }
+          break;
+      }
 
-  // }
+    } while (choice != menu.length);
 
-  // public static void printMenus(String[] menus, Boolean flush) {
-  // if (flush) {
-  // System.out.print("\033[H\033[2J");
-  // System.out.flush();
-  // }
+  }
 
-  // System.out.println("\n\n\n");
+  private void teacherMenu() {
+    int choice;
 
-  // for (String item : menus) {
-  // System.out.println(item);
-  // }
-  // }
+    do {
+
+      printMenus(menuTeacher, false);
+
+      try {
+        choice = this.sc.nextInt();
+      } catch (Exception e) {
+        choice = -1;
+      }
+
+      switch (choice) {
+        case 1:
+          System.out.println(Database.TEACHER.toString());
+          pressEnterToContinue();
+          break;
+
+        case 2:
+
+          break;
+
+        case 3:
+
+          break;
+
+        default:
+          if (choice == menu.length) {
+            System.out.println("Voltando...");
+          } else {
+            System.out.println("Opção inválida!");
+          }
+          break;
+      }
+
+    } while (choice != menu.length);
+
+  }
+
+  private void courseMenu() {
+    int choice;
+
+    do {
+
+      printMenus(menuCourse, false);
+
+      try {
+        choice = this.sc.nextInt();
+      } catch (Exception e) {
+        choice = -1;
+      }
+
+      switch (choice) {
+        case 1:
+          System.out.println(Database.COURSE.toString());
+          pressEnterToContinue();
+          break;
+
+        case 2:
+
+          break;
+
+        case 3:
+
+          break;
+
+        default:
+          if (choice == menu.length) {
+            System.out.println("Voltando...");
+          } else {
+            System.out.println("Opção inválida!");
+          }
+          break;
+      }
+
+    } while (choice != menu.length);
+
+  }
+
+  private void subjectMenu() {
+    int choice;
+
+    do {
+
+      printMenus(menuSubject, false);
+
+      try {
+        choice = this.sc.nextInt();
+      } catch (Exception e) {
+        choice = -1;
+      }
+
+      switch (choice) {
+        case 1:
+          System.out.println(Database.SUBJECT.toString());
+          pressEnterToContinue();
+          break;
+
+        case 2:
+
+          break;
+
+        case 3:
+
+          break;
+
+        default:
+          if (choice == menu.length) {
+            System.out.println("Voltando...");
+          } else {
+            System.out.println("Opção inválida!");
+          }
+          break;
+      }
+
+    } while (choice != menu.length);
+
+  }
+
+  private void userMenu() {
+    int choice;
+
+    do {
+
+      printMenus(menuUser, false);
+
+      try {
+        choice = this.sc.nextInt();
+      } catch (Exception e) {
+        choice = -1;
+      }
+
+      switch (choice) {
+        case 1:
+          System.out.println(Database.USER.toString());
+          pressEnterToContinue();
+          break;
+
+        case 2:
+
+          break;
+
+        case 3:
+
+          break;
+
+        default:
+          if (choice == menu.length) {
+            System.out.println("Voltando...");
+          } else {
+            System.out.println("Opção inválida!");
+          }
+          break;
+      }
+
+    } while (choice != menu.length);
+
+  }
+
+  private void pressEnterToContinue() {
+    System.out.println("\n\nPressione ENTER para continuar...");
+    try {
+      System.in.read();
+    } catch (Exception e) {
+    }
+  }
+
+  /**
+   * @param menus
+   * @param flush
+   */
+  public static void printMenus(String[] menus, Boolean flush) {
+    if (flush) {
+      System.out.print("\033[H\033[2J");
+      System.out.flush();
+    }
+
+    System.out.println("\n\n\n");
+
+    for (String item : menus) {
+      System.out.println(item);
+    }
+  }
 }
