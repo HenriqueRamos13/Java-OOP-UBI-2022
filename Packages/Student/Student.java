@@ -8,6 +8,7 @@ import Subject.Subject;
 import User.User;
 
 public class Student extends User implements Serializable {
+  private int id;
   private Course course;
   private Subject[] subjects = {};
 
@@ -15,7 +16,7 @@ public class Student extends User implements Serializable {
     super();
   }
 
-  public Student(String name, Course course, String registration) {
+  public Student(String name, Course course) {
     super(name);
     this.course = course;
   }
@@ -33,6 +34,34 @@ public class Student extends User implements Serializable {
         this.id = Integer.parseInt(fieldValue);
         break;
     }
+  }
+
+  /**
+   * @return String
+   */
+  public String getName() {
+    return this.name;
+  }
+
+  /**
+   * @param name
+   */
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  /**
+   * @return int
+   */
+  public int getId() {
+    return this.id;
+  }
+
+  /**
+   * @param id
+   */
+  public void setId(int id) {
+    this.id = id;
   }
 
   /**
@@ -68,7 +97,8 @@ public class Student extends User implements Serializable {
    */
   @Override
   public String toString() {
-    return "{" + " name='" + getName() + "'" + ", course='" + getCourse() + "'" + ", subjects='"
+    return "{" + "id='" + getId() + "'" + ", name='" + getName() + "'" + ", course='" + getCourse() + "'"
+        + ", subjects='"
         + Arrays.toString(getSubjects()) + "'" + "}";
   }
 }

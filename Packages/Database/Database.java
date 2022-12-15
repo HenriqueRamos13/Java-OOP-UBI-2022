@@ -16,7 +16,6 @@ import User.User;
 import Subject.Subject;
 
 public class Database {
-  public static ArrayList<User> USER;
   public static ArrayList<Student> STUDENT;
   public static ArrayList<Teacher> TEACHER;
   public static ArrayList<Subject> SUBJECT;
@@ -25,7 +24,6 @@ public class Database {
 
   public Database() {
     this.populateCourse();
-    this.populateUser();
     this.populateSubject();
     this.populateStudent();
     this.populateTeacher();
@@ -79,30 +77,6 @@ public class Database {
     }
   }
 
-  private void populateUser() {
-    File file = new File("../Database/DAT/User.dat");
-
-    try {
-      FileInputStream fis = new FileInputStream(file);
-      ObjectInputStream ois = new ObjectInputStream(fis);
-
-      Object obj = ois.readObject();
-
-      if (obj instanceof ArrayList) {
-
-        USER = (ArrayList<User>) obj;
-
-      } else {
-        USER = new ArrayList<User>();
-      }
-
-      ois.close();
-    } catch (Exception e) {
-      System.out.println("Erro ao abrir o arquivo de usuários");
-      return;
-    }
-  }
-
   private void populateSubject() {
     File file = new File("../Database/DAT/Subject.dat");
 
@@ -147,22 +121,6 @@ public class Database {
       ois.close();
     } catch (Exception e) {
       System.out.println("Erro ao abrir o arquivo de professores");
-      return;
-    }
-  }
-
-  private static void saveUser() {
-    File file = new File("../Database/DAT/User.dat");
-
-    try {
-      FileOutputStream fos = new FileOutputStream(file);
-      ObjectOutputStream oos = new ObjectOutputStream(fos);
-
-      oos.writeObject(USER);
-
-      oos.close();
-    } catch (Exception e) {
-      System.out.println("Erro ao salvar o arquivo de usuários");
       return;
     }
   }
@@ -239,6 +197,5 @@ public class Database {
     saveStudent();
     saveSubject();
     saveTeacher();
-    saveUser();
   }
 }

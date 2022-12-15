@@ -3,6 +3,10 @@ package Menu;
 import java.util.Scanner;
 
 import Course.Course;
+import Student.Student;
+import Teacher.Teacher;
+import Subject.Subject;
+
 import Database.Database;
 
 public class Menu {
@@ -13,8 +17,7 @@ public class Menu {
       "2 - Professores",
       "3 - Alunos",
       "4 - Matérias",
-      "5 - Usuários",
-      "6 - Sair"
+      "5 - Sair"
   };
 
   final static String[] menuCourse = {
@@ -39,13 +42,6 @@ public class Menu {
   };
 
   final static String[] menuTeacher = {
-      "1 - Listar",
-      "2 - Adicionar",
-      "3 - Remover",
-      "4 - Voltar"
-  };
-
-  final static String[] menuUser = {
       "1 - Listar",
       "2 - Adicionar",
       "3 - Remover",
@@ -80,10 +76,6 @@ public class Menu {
 
         case 4:
           subjectMenu();
-          break;
-
-        case 5:
-          userMenu();
           break;
 
         default:
@@ -122,14 +114,54 @@ public class Menu {
 
         case 2:
 
+          try {
+            Scanner sc = new Scanner(System.in);
+
+            Student student = new Student();
+
+            System.out.println("Digite o nome do estudante:");
+            String name = sc.nextLine();
+            student.setName(name);
+
+            System.out.println("Digite o ID do curso do estudante:");
+            int id = Integer.parseInt(sc.nextLine());
+
+            Course course = Database.COURSE.get(id);
+
+            student.setCourse(course);
+
+            Database.STUDENT.add(student);
+
+            System.out.println("Usuário adicionado com sucesso!");
+            pressEnterToContinue();
+          } catch (Exception e) {
+            System.out.println("Erro ao adicionar usuário!");
+            pressEnterToContinue();
+          }
+
           break;
 
         case 3:
 
+          try {
+            Scanner sc = new Scanner(System.in);
+
+            System.out.println("Digite o ID do estudante:");
+            int id = Integer.parseInt(sc.nextLine());
+
+            Database.STUDENT.remove(id);
+
+            System.out.println("Estudante removido com sucesso!");
+            pressEnterToContinue();
+          } catch (Exception e) {
+            System.out.println("Erro ao remover estudante!");
+            pressEnterToContinue();
+          }
+
           break;
 
         default:
-          if (choice == menu.length) {
+          if (choice == menuStudent.length) {
             System.out.println("Voltando...");
           } else {
             System.out.println("Opção inválida!");
@@ -137,7 +169,7 @@ public class Menu {
           break;
       }
 
-    } while (choice != menu.length);
+    } while (choice != menuStudent.length);
 
   }
 
@@ -162,14 +194,54 @@ public class Menu {
 
         case 2:
 
+          try {
+            Scanner sc = new Scanner(System.in);
+
+            Teacher teacher = new Teacher();
+
+            System.out.println("Digite o nome do professor:");
+            String name = sc.nextLine();
+            teacher.setName(name);
+
+            System.out.println("Digite o ID do curso do professor:");
+            int id = Integer.parseInt(sc.nextLine());
+
+            Course course = Database.COURSE.get(id);
+
+            teacher.setCourse(course);
+
+            Database.TEACHER.add(teacher);
+
+            System.out.println("Professor adicionado com sucesso!");
+            pressEnterToContinue();
+          } catch (Exception e) {
+            System.out.println("Erro ao adicionar professor!");
+            pressEnterToContinue();
+          }
+
           break;
 
         case 3:
 
+          try {
+            Scanner sc = new Scanner(System.in);
+
+            System.out.println("Digite o ID do professor:");
+            int id = Integer.parseInt(sc.nextLine());
+
+            Database.TEACHER.remove(id);
+
+            System.out.println("Professor removido com sucesso!");
+            pressEnterToContinue();
+          } catch (Exception e) {
+            System.out.println("Erro ao remover professor!");
+            pressEnterToContinue();
+          }
+
           break;
 
         default:
-          if (choice == menu.length) {
+          if (choice == menuTeacher.length) {
             System.out.println("Voltando...");
           } else {
             System.out.println("Opção inválida!");
@@ -177,7 +249,7 @@ public class Menu {
           break;
       }
 
-    } while (choice != menu.length);
+    } while (choice != menuTeacher.length);
 
   }
 
@@ -210,17 +282,31 @@ public class Menu {
             String name = sc.nextLine();
             course.setName(name);
 
-            System.out.println("Digite o ID do curso:");
-            int id = Integer.parseInt(sc.nextLine());
-            course.setId(id);
-
             Database.COURSE.add(course);
+
+            System.out.println("Curso adicionado com sucesso!");
+            pressEnterToContinue();
           } catch (Exception e) {
 
           }
           break;
 
         case 3:
+
+          try {
+            Scanner sc = new Scanner(System.in);
+
+            System.out.println("Digite o ID do curso:");
+            int id = Integer.parseInt(sc.nextLine());
+
+            Database.COURSE.remove(id);
+
+            System.out.println("Curso removido com sucesso!");
+            pressEnterToContinue();
+          } catch (Exception e) {
+            System.out.println("Erro ao remover curso!");
+            pressEnterToContinue();
+          }
 
           break;
 
@@ -258,9 +344,49 @@ public class Menu {
 
         case 2:
 
+          try {
+            Scanner sc = new Scanner(System.in);
+
+            Subject subject = new Subject();
+
+            System.out.println("Digite o nome da matéria:");
+            String name = sc.nextLine();
+            subject.setName(name);
+
+            System.out.println("Digite o ID do curso da matéria:");
+            int id = Integer.parseInt(sc.nextLine());
+
+            Course course = Database.COURSE.get(id);
+
+            subject.setCourse(course);
+
+            Database.SUBJECT.add(subject);
+
+            System.out.println("Matéria adicionada com sucesso!");
+            pressEnterToContinue();
+          } catch (Exception e) {
+            System.out.println("Erro ao adicionar matéria!");
+            pressEnterToContinue();
+          }
+
           break;
 
         case 3:
+
+          try {
+            Scanner sc = new Scanner(System.in);
+
+            System.out.println("Digite o ID da matéria:");
+            int id = Integer.parseInt(sc.nextLine());
+
+            Database.SUBJECT.remove(id);
+
+            System.out.println("Matéria removida com sucesso!");
+            pressEnterToContinue();
+          } catch (Exception e) {
+            System.out.println("Erro ao remover matéria!");
+            pressEnterToContinue();
+          }
 
           break;
 
@@ -274,46 +400,6 @@ public class Menu {
       }
 
     } while (choice != menuSubject.length);
-
-  }
-
-  private void userMenu() {
-    int choice;
-
-    do {
-
-      printMenus(menuUser, false);
-
-      try {
-        choice = this.sc.nextInt();
-      } catch (Exception e) {
-        choice = -1;
-      }
-
-      switch (choice) {
-        case 1:
-          System.out.println(Database.USER.toString());
-          pressEnterToContinue();
-          break;
-
-        case 2:
-
-          break;
-
-        case 3:
-
-          break;
-
-        default:
-          if (choice == menuUser.length) {
-            System.out.println("Voltando...");
-          } else {
-            System.out.println("Opção inválida!");
-          }
-          break;
-      }
-
-    } while (choice != menuUser.length);
 
   }
 

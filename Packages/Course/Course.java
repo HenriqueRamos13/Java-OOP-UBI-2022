@@ -1,12 +1,14 @@
 package Course;
 
 import java.io.Serializable;
+import Database.Database;
 
 public class Course implements Serializable {
   private String name;
   private int id;
 
   public Course() {
+    this.id = Database.COURSE.size();
   }
 
   public Course(String name, int id) {

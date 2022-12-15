@@ -1,20 +1,16 @@
 package User;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Scanner;
-
-import Database.Database;
 
 public class User implements Serializable {
   protected int id;
   protected String name;
 
   public User() {
+
   }
 
   public User(String name) {
-    this.id = Database.USER.size();
     this.name = name;
   }
 

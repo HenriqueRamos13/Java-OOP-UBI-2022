@@ -3,6 +3,7 @@ package Subject;
 import java.io.Serializable;
 
 import Course.Course;
+import Database.Database;
 
 public class Subject implements Serializable {
   private String name;
@@ -11,6 +12,7 @@ public class Subject implements Serializable {
   private int ects;
 
   public Subject() {
+    this.id = Database.SUBJECT.size();
   }
 
   public Subject(String name, int id, Course course, int ects) {
