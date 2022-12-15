@@ -1,12 +1,13 @@
 package Teacher;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 import Course.Course;
 import Subject.Subject;
 import User.User;
 
-public class Teacher extends User {
+public class Teacher extends User implements Serializable {
   private Course course;
   private Subject[] subjects = {};
 

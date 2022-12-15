@@ -1,6 +1,8 @@
 package Menu;
 
 import java.util.Scanner;
+
+import Course.Course;
 import Database.Database;
 
 public class Menu {
@@ -90,6 +92,8 @@ public class Menu {
           } else {
             System.out.println("Opção inválida!");
           }
+
+          Database.saveAllDatabase();
           break;
       }
 
@@ -197,7 +201,23 @@ public class Menu {
           break;
 
         case 2:
+          try {
+            Scanner sc = new Scanner(System.in);
 
+            Course course = new Course();
+
+            System.out.println("Digite o nome do curso:");
+            String name = sc.nextLine();
+            course.setName(name);
+
+            System.out.println("Digite o ID do curso:");
+            int id = Integer.parseInt(sc.nextLine());
+            course.setId(id);
+
+            Database.COURSE.add(course);
+          } catch (Exception e) {
+
+          }
           break;
 
         case 3:
@@ -205,7 +225,7 @@ public class Menu {
           break;
 
         default:
-          if (choice == menu.length) {
+          if (choice == menuCourse.length) {
             System.out.println("Voltando...");
           } else {
             System.out.println("Opção inválida!");
@@ -213,7 +233,7 @@ public class Menu {
           break;
       }
 
-    } while (choice != menu.length);
+    } while (choice != menuCourse.length);
 
   }
 
@@ -245,7 +265,7 @@ public class Menu {
           break;
 
         default:
-          if (choice == menu.length) {
+          if (choice == menuSubject.length) {
             System.out.println("Voltando...");
           } else {
             System.out.println("Opção inválida!");
@@ -253,7 +273,7 @@ public class Menu {
           break;
       }
 
-    } while (choice != menu.length);
+    } while (choice != menuSubject.length);
 
   }
 
@@ -285,7 +305,7 @@ public class Menu {
           break;
 
         default:
-          if (choice == menu.length) {
+          if (choice == menuUser.length) {
             System.out.println("Voltando...");
           } else {
             System.out.println("Opção inválida!");
@@ -293,7 +313,7 @@ public class Menu {
           break;
       }
 
-    } while (choice != menu.length);
+    } while (choice != menuUser.length);
 
   }
 

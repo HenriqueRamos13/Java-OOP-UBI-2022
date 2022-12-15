@@ -1,8 +1,11 @@
 package Database;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -13,11 +16,11 @@ import User.User;
 import Subject.Subject;
 
 public class Database {
-  public static List<User> USER = new ArrayList<User>();
-  public static List<Student> STUDENT = new ArrayList<Student>();
-  public static List<Teacher> TEACHER = new ArrayList<Teacher>();
-  public static List<Subject> SUBJECT = new ArrayList<Subject>();
-  public static List<Course> COURSE = new ArrayList<Course>();
+  public static ArrayList<User> USER;
+  public static ArrayList<Student> STUDENT;
+  public static ArrayList<Teacher> TEACHER;
+  public static ArrayList<Subject> SUBJECT;
+  public static ArrayList<Course> COURSE;
   Scanner sc;
 
   public Database() {
@@ -29,248 +32,213 @@ public class Database {
   }
 
   private void populateStudent() {
-    File file = new File("../Database/Student.txt");
+    File file = new File("../Database/DAT/Student.dat");
 
     try {
-      sc = new Scanner(file);
-    } catch (Exception e) {
-      System.out.println("Erro ao abrir o arquivo");
-      return;
-    }
-    String line = sc.nextLine();
-    String[] fields = line.split(":");
+      FileInputStream fis = new FileInputStream(file);
+      ObjectInputStream ois = new ObjectInputStream(fis);
 
-    while (sc.hasNextLine()) {
-      line = sc.nextLine();
-      String[] values = line.split(":");
+      Object obj = ois.readObject();
 
-      Student student = new Student();
+      if (obj instanceof ArrayList) {
 
-      for (int i = 0; i < fields.length; i++) {
-        String[] field = fields[i].split(";");
-        String fieldName = field[0];
-        String fieldType = field[1];
-        String fieldClass = "";
-        if (field.length > 2) {
-          fieldClass = field[2];
-        }
-        String fieldValue = values[i];
+        STUDENT = (ArrayList<Student>) obj;
 
-        if (fieldType.equals("String")) {
-          student.setField(fieldName, fieldValue);
-        } else if (fieldType.equals("Integer")) {
-          student.setField(fieldName, fieldValue);
-        } else if (fieldType.equals("Array")) {
-          if (fieldClass.equals("Subject")) {
-            if (fieldValue.equals("[]")) {
-              student.setSubjects(new Subject[0]);
-            } else {
-              String[] subjectIds = fieldValue.substring(1, fieldValue.length() - 1).split(",");
-              Subject[] subjects = new Subject[subjectIds.length];
-              for (int j = 0; j < subjectIds.length; j++) {
-                subjects[j] = Database.SUBJECT.get(Integer.parseInt(subjectIds[j]));
-              }
-              student.setSubjects(subjects);
-            }
-          }
-        } else if (fieldType.equals("Class")) {
-          if (fieldClass.equals("User")) {
-            User user = USER.get(Integer.parseInt(fieldValue));
-            student.setId(user.getId());
-            student.setName(user.getName());
-          } else if (fieldClass.equals("Course")) {
-            Course course = COURSE.get(Integer.parseInt(fieldValue));
-            student.setCourse(course);
-          }
-        }
+      } else {
+        STUDENT = new ArrayList<Student>();
       }
 
-      STUDENT.add(student);
+      ois.close();
+    } catch (Exception e) {
+      System.out.println("Erro ao abrir o arquivo de estudantes");
+      return;
     }
   }
 
   private void populateCourse() {
-    File file = new File("../Database/Course.txt");
+    File file = new File("../Database/DAT/Course.dat");
 
     try {
-      sc = new Scanner(file);
-    } catch (Exception e) {
-      System.out.println("Erro ao abrir o arquivo");
-      return;
-    }
-    String line = sc.nextLine();
-    String[] fields = line.split(":");
+      FileInputStream fis = new FileInputStream(file);
+      ObjectInputStream ois = new ObjectInputStream(fis);
 
-    while (sc.hasNextLine()) {
-      line = sc.nextLine();
-      String[] values = line.split(":");
+      Object obj = ois.readObject();
 
-      Course course = new Course();
+      if (obj instanceof ArrayList) {
 
-      for (int i = 0; i < fields.length; i++) {
-        String[] field = fields[i].split(";");
-        String fieldName = field[0];
-        String fieldType = field[1];
-        String fieldClass = "";
-        if (field.length > 2) {
-          fieldClass = field[2];
-        }
-        String fieldValue = values[i];
+        COURSE = (ArrayList<Course>) obj;
 
-        if (fieldType.equals("String")) {
-          course.setField(fieldName, fieldValue);
-        } else if (fieldType.equals("Integer")) {
-          course.setField(fieldName, fieldValue);
-        }
+      } else {
+        COURSE = new ArrayList<Course>();
       }
 
-      COURSE.add(course);
+      ois.close();
+    } catch (Exception e) {
+      System.out.println("Erro ao abrir o arquivo de cursos");
+      return;
     }
   }
 
   private void populateUser() {
-    File file = new File("../Database/User.txt");
+    File file = new File("../Database/DAT/User.dat");
 
     try {
-      sc = new Scanner(file);
-    } catch (Exception e) {
-      System.out.println("Erro ao abrir o arquivo");
-      return;
-    }
-    String line = sc.nextLine();
-    String[] fields = line.split(":");
+      FileInputStream fis = new FileInputStream(file);
+      ObjectInputStream ois = new ObjectInputStream(fis);
 
-    while (sc.hasNextLine()) {
-      line = sc.nextLine();
-      String[] values = line.split(":");
+      Object obj = ois.readObject();
 
-      User user = new User();
+      if (obj instanceof ArrayList) {
 
-      for (int i = 0; i < fields.length; i++) {
-        String[] field = fields[i].split(";");
+        USER = (ArrayList<User>) obj;
 
-        String fieldName = field[0];
-        String fieldType = field[1];
-        String fieldClass = "";
-        if (field.length > 2) {
-          fieldClass = field[2];
-        }
-        String fieldValue = values[i];
-
-        if (fieldType.equals("String")) {
-          user.setField(fieldName, fieldValue);
-        } else if (fieldType.equals("Integer")) {
-          user.setField(fieldName, fieldValue);
-        }
+      } else {
+        USER = new ArrayList<User>();
       }
 
-      USER.add(user);
+      ois.close();
+    } catch (Exception e) {
+      System.out.println("Erro ao abrir o arquivo de usuários");
+      return;
     }
   }
 
   private void populateSubject() {
-    File file = new File("../Database/Subject.txt");
+    File file = new File("../Database/DAT/Subject.dat");
 
     try {
-      sc = new Scanner(file);
-    } catch (Exception e) {
-      System.out.println("Erro ao abrir o arquivo");
-      return;
-    }
-    String line = sc.nextLine();
-    String[] fields = line.split(":");
+      FileInputStream fis = new FileInputStream(file);
+      ObjectInputStream ois = new ObjectInputStream(fis);
 
-    while (sc.hasNextLine()) {
-      line = sc.nextLine();
-      String[] values = line.split(":");
+      Object obj = ois.readObject();
 
-      Subject subject = new Subject();
+      if (obj instanceof ArrayList) {
 
-      for (int i = 0; i < fields.length; i++) {
-        String[] field = fields[i].split(";");
-        String fieldName = field[0];
-        String fieldType = field[1];
-        String fieldClass = "";
-        if (field.length > 2) {
-          fieldClass = field[2];
-        }
-        String fieldValue = values[i];
+        SUBJECT = (ArrayList<Subject>) obj;
 
-        if (fieldType.equals("String")) {
-          subject.setField(fieldName, fieldValue);
-        } else if (fieldType.equals("Integer")) {
-          subject.setField(fieldName, fieldValue);
-        } else if (fieldType.equals("Class")) {
-          if (fieldClass.equals("Course")) {
-            Course course = COURSE.get(Integer.parseInt(fieldValue));
-            subject.setCourse(course);
-          }
-        }
+      } else {
+        SUBJECT = new ArrayList<Subject>();
       }
 
-      SUBJECT.add(subject);
+      ois.close();
+    } catch (Exception e) {
+      System.out.println("Erro ao abrir o arquivo de disciplinas");
+      return;
     }
   }
 
   private void populateTeacher() {
-    File file = new File("../Database/Teacher.txt");
+    File file = new File("../Database/DAT/Teacher.dat");
 
     try {
-      sc = new Scanner(file);
-    } catch (Exception e) {
-      System.out.println("Erro ao abrir o arquivo");
-      return;
-    }
-    String line = sc.nextLine();
-    String[] fields = line.split(":");
+      FileInputStream fis = new FileInputStream(file);
+      ObjectInputStream ois = new ObjectInputStream(fis);
 
-    while (sc.hasNextLine()) {
-      line = sc.nextLine();
-      String[] values = line.split(":");
+      Object obj = ois.readObject();
 
-      Teacher teacher = new Teacher();
+      if (obj instanceof ArrayList) {
 
-      for (int i = 0; i < fields.length; i++) {
-        String[] field = fields[i].split(";");
-        String fieldName = field[0];
-        String fieldType = field[1];
-        String fieldClass = "";
-        if (field.length > 2) {
-          fieldClass = field[2];
-        }
-        String fieldValue = values[i];
+        TEACHER = (ArrayList<Teacher>) obj;
 
-        if (fieldType.equals("String")) {
-          teacher.setField(fieldName, fieldValue);
-        } else if (fieldType.equals("Integer")) {
-          teacher.setField(fieldName, fieldValue);
-        } else if (fieldType.equals("Array")) {
-          if (fieldClass.equals("Subject")) {
-            if (fieldValue.equals("[]")) {
-              teacher.setSubjects(new Subject[0]);
-            } else {
-              String[] subjectIds = fieldValue.substring(1, fieldValue.length() - 1).split(",");
-              Subject[] subjects = new Subject[subjectIds.length];
-              for (int j = 0; j < subjectIds.length; j++) {
-                subjects[j] = Database.SUBJECT.get(Integer.parseInt(subjectIds[j]));
-              }
-              teacher.setSubjects(subjects);
-            }
-          }
-        } else if (fieldType.equals("Class")) {
-          if (fieldClass.equals("User")) {
-            User user = USER.get(Integer.parseInt(fieldValue));
-            teacher.setId(user.getId());
-            teacher.setName(user.getName());
-          } else if (fieldClass.equals("Course")) {
-            Course course = COURSE.get(Integer.parseInt(fieldValue));
-            teacher.setCourse(course);
-          }
-        }
+      } else {
+        TEACHER = new ArrayList<Teacher>();
       }
 
-      TEACHER.add(teacher);
+      ois.close();
+    } catch (Exception e) {
+      System.out.println("Erro ao abrir o arquivo de professores");
+      return;
     }
   }
 
+  private static void saveUser() {
+    File file = new File("../Database/DAT/User.dat");
+
+    try {
+      FileOutputStream fos = new FileOutputStream(file);
+      ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+      oos.writeObject(USER);
+
+      oos.close();
+    } catch (Exception e) {
+      System.out.println("Erro ao salvar o arquivo de usuários");
+      return;
+    }
+  }
+
+  private static void saveStudent() {
+    File file = new File("../Database/DAT/Student.dat");
+
+    try {
+      FileOutputStream fos = new FileOutputStream(file);
+      ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+      oos.writeObject(STUDENT);
+
+      oos.close();
+    } catch (Exception e) {
+      System.out.println("Erro ao salvar o arquivo de estudantes");
+      return;
+    }
+  }
+
+  private static void saveCourse() {
+    File file = new File("../Database/DAT/Course.dat");
+
+    try {
+      FileOutputStream fos = new FileOutputStream(file);
+      ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+      oos.writeObject(COURSE);
+
+      oos.close();
+    } catch (Exception e) {
+      System.out.println("Erro ao salvar o arquivo de cursos");
+      e.printStackTrace();
+      System.out.println(e);
+      System.out.println(e.getMessage());
+      return;
+    }
+  }
+
+  private static void saveSubject() {
+    File file = new File("../Database/DAT/Subject.dat");
+
+    try {
+      FileOutputStream fos = new FileOutputStream(file);
+      ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+      oos.writeObject(SUBJECT);
+
+      oos.close();
+    } catch (Exception e) {
+      System.out.println("Erro ao salvar o arquivo de disciplinas");
+      return;
+    }
+  }
+
+  private static void saveTeacher() {
+    File file = new File("../Database/DAT/Teacher.dat");
+
+    try {
+      FileOutputStream fos = new FileOutputStream(file);
+      ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+      oos.writeObject(TEACHER);
+
+      oos.close();
+    } catch (Exception e) {
+      System.out.println("Erro ao salvar o arquivo de professores");
+      return;
+    }
+  }
+
+  public static void saveAllDatabase() {
+    saveCourse();
+    saveStudent();
+    saveSubject();
+    saveTeacher();
+    saveUser();
+  }
 }

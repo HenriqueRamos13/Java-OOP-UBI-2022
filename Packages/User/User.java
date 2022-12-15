@@ -1,11 +1,12 @@
 package User;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import Database.Database;
 
-public class User {
+public class User implements Serializable {
   protected int id;
   protected String name;
 

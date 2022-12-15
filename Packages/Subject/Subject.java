@@ -1,8 +1,10 @@
 package Subject;
 
+import java.io.Serializable;
+
 import Course.Course;
 
-public class Subject {
+public class Subject implements Serializable {
   private String name;
   private int id;
   private Course course;
