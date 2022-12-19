@@ -38,7 +38,8 @@ public class Menu {
       "1 - Listar",
       "2 - Adicionar",
       "3 - Remover",
-      "4 - Voltar"
+      "4 - Matricular usuário em uma matéria",
+      "5 - Voltar"
   };
 
   final static String[] menuTeacher = {
@@ -155,6 +156,64 @@ public class Menu {
             pressEnterToContinue();
           } catch (Exception e) {
             System.out.println("Erro ao remover estudante!");
+            pressEnterToContinue();
+          }
+
+          break;
+
+        case 4:
+
+          try {
+            Scanner sc = new Scanner(System.in);
+
+            System.out.println("Digite o ID do estudante:");
+            int id = Integer.parseInt(sc.nextLine());
+
+            Student student = Database.STUDENT.get(id);
+
+            System.out.println("Digite o ID da matéria:");
+            id = Integer.parseInt(sc.nextLine());
+
+            Subject subject = Database.SUBJECT.get(id);
+
+            Subject[] subjects = student.getSubjects();
+
+            if (subjects.length == 7) {
+              throw new Exception("O estudante não pode ter mais de 7 matérias!");
+            }
+
+            int sum = 0;
+
+            for (int i = 0; i < subjects.length; i++) {
+              sum += subjects[i].getEcts();
+            }
+
+            sum += subject.getEcts();
+
+            if (sum > 30) {
+              throw new Exception("O estudante não pode ter mais de 30 ECTS!");
+            }
+
+            for (int i = 0; i < subjects.length; i++) {
+              if (subjects[i].getId() == subject.getId()) {
+                throw new Exception("O estudante já está matriculado nessa matéria!");
+              }
+            }
+
+            Subject[] newSubjects = new Subject[subjects.length + 1];
+
+            for (int i = 0; i < subjects.length; i++) {
+              newSubjects[i] = subjects[i];
+            }
+
+            newSubjects[subjects.length] = subject;
+
+            student.setSubjects(newSubjects);
+
+            System.out.println("Estudante matriculado com sucesso!");
+            pressEnterToContinue();
+          } catch (Exception e) {
+            System.out.println(e.getMessage());
             pressEnterToContinue();
           }
 
@@ -359,6 +418,11 @@ public class Menu {
             Course course = Database.COURSE.get(id);
 
             subject.setCourse(course);
+
+            System.out.println("Digite a quantidade de ECTS que essa materia vai ter:");
+            int ects = Integer.parseInt(sc.nextLine());
+
+            subject.setEcts(ects);
 
             Database.SUBJECT.add(subject);
 
